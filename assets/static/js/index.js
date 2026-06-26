@@ -1,6 +1,23 @@
 var httpPort, httpsPort, pageOptions;
 (function ($) {
     $(function () {
+        function preferredTheme() {
+            var stored = window.localStorage && window.localStorage.getItem('frps-panel-theme');
+            if (stored === 'dark' || stored === 'light') {
+                return stored;
+            }
+            return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function applyTheme(theme) {
+            $('html').attr('data-theme', theme);
+            $('body').attr('data-theme', theme);
+            $('#themeToggle').toggleClass('is-dark', theme === 'dark');
+            $('#themeToggle i')
+                .toggleClass('layui-icon-light', theme !== 'dark')
+                .toggleClass('layui-icon-moon', theme === 'dark');
+        }
+
         function init() {
             var langLoading = layui.layer.load()
             $.getJSON('/lang.json').done(function (lang) {
@@ -51,8 +68,15 @@ var httpPort, httpsPort, pageOptions;
 
         $(document).on('click.logout', '#logout', function () {
             logout();
+        }).on('click.theme', '#themeToggle', function () {
+            var theme = $('html').attr('data-theme') === 'dark' ? 'light' : 'dark';
+            if (window.localStorage) {
+                window.localStorage.setItem('frps-panel-theme', theme);
+            }
+            applyTheme(theme);
         });
 
+        applyTheme(preferredTheme());
         init();
     });
 })(layui.$);

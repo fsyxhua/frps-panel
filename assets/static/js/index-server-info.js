@@ -34,6 +34,9 @@ var loadServerInfo = (function ($) {
                 data.heartbeatTimeout = data.heartbeatTimeout || i18n['NotSet'];
                 data.allowPortsStr = data.allowPortsStr || i18n['NotLimit'];
                 data.tlsForce = i18n[data.tlsForce || false];
+                data.totalTrafficInText = size(data.totalTrafficIn || 0);
+                data.totalTrafficOutText = size(data.totalTrafficOut || 0);
+                data.totalTrafficText = size((data.totalTrafficIn || 0) + (data.totalTrafficOut || 0));
                 renderServerInfo(data);
             } else {
                 layui.layer.msg(result.message);
@@ -69,18 +72,9 @@ var loadServerInfo = (function ($) {
         var chartDom = document.getElementById('trafficPieChart');
         var chart = echarts.init(chartDom);
         var option = {
+            color: ['#5b7cfa', '#7ed46b'],
             title: {
-                text: i18n['NetworkTraffic'],
-                subtext: i18n['today'],
-                left: 'center',
-                textStyle: {
-                    textBorderColor: '#fff',
-                    textBorderWidth: 2
-                },
-                subtextStyle: {
-                    textBorderColor: '#fff',
-                    textBorderWidth: 2
-                }
+                show: false
             },
             tooltip: {
                 trigger: 'item',
@@ -89,19 +83,16 @@ var loadServerInfo = (function ($) {
                 },
             },
             legend: {
-                orient: 'vertical',
-                left: 'left',
+                bottom: 0,
                 data: chartLegend,
-                textStyle: {
-                    textBorderColor: '#fff',
-                    textBorderWidth: 2
-                }
+                textStyle: {color: '#7f8b9c'}
             },
             series: [
                 {
                     type: 'pie',
-                    radius: '55%',
-                    center: ['50%', '60%'],
+                    radius: ['46%', '68%'],
+                    center: ['50%', '44%'],
+                    avoidLabelOverlap: true,
                     data: chartData,
                     emphasis: {
                         itemStyle: {
@@ -138,18 +129,9 @@ var loadServerInfo = (function ($) {
         var chartDom = document.getElementById('countPieChart');
         var chart = echarts.init(chartDom);
         var option = {
+            color: ['#6e6af2', '#ef67b5', '#27c7e8', '#37df99', '#f2bd56', '#ff7a7a'],
             title: {
-                text: i18n['Proxy'],
-                subtext: i18n['now'],
-                left: 'center',
-                textStyle: {
-                    textBorderColor: '#fff',
-                    textBorderWidth: 2
-                },
-                subtextStyle: {
-                    textBorderColor: '#fff',
-                    textBorderWidth: 2
-                }
+                show: false
             },
             tooltip: {
                 trigger: 'item',
@@ -158,19 +140,15 @@ var loadServerInfo = (function ($) {
                 }
             },
             legend: {
-                orient: 'vertical',
-                left: 'left',
+                bottom: 0,
                 data: chartLegend,
-                textStyle: {
-                    textBorderColor: '#fff',
-                    textBorderWidth: 2
-                }
+                textStyle: {color: '#7f8b9c'}
             },
             series: [
                 {
                     type: 'pie',
-                    radius: '55%',
-                    center: ['50%', '60%'],
+                    radius: ['46%', '68%'],
+                    center: ['50%', '44%'],
                     data: chartData,
                     emphasis: {
                         itemStyle: {
