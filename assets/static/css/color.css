@@ -316,6 +316,12 @@ html[data-theme="dark"] {
     --app-shadow: 0 16px 32px rgba(0, 0, 0, 0.22);
 }
 
+html[data-theme="dark"] .layui-nav-tree .layui-nav-child dd.layui-this,
+html[data-theme="dark"] .layui-nav-tree .layui-nav-child dd.layui-this a,
+html[data-theme="dark"] .layui-nav-tree .layui-nav-child a:hover {
+    background: rgba(103, 183, 255, 0.12) !important;
+}
+
 html[data-theme="light"] {
     --app-bg: #f7f8fa;
     --app-surface: #ffffff;
@@ -471,9 +477,26 @@ body {
     font-size: 16px;
 }
 
+.layui-nav-tree .layui-nav-item,
+.layui-nav-tree .layui-nav-itemed,
+.layui-nav-tree .layui-nav-child {
+    background: transparent !important;
+}
+
+.layui-nav-tree .layui-nav-child {
+    position: relative;
+    margin: 4px 15px 10px 15px;
+    padding: 4px 0 4px 14px;
+    border-left: 1px solid var(--app-border);
+    border-radius: 0;
+    box-sizing: border-box;
+}
+
 .layui-nav-tree .layui-nav-child a {
     height: 38px;
     line-height: 38px;
+    margin: 0 0 2px 0;
+    padding: 0 12px;
     color: var(--app-muted) !important;
     font-size: 14px;
 }
@@ -487,6 +510,17 @@ body {
 .layui-nav-tree .layui-nav-child dd.layui-this a {
     color: var(--app-text) !important;
     background: var(--app-hover) !important;
+}
+
+.layui-nav-tree .layui-nav-child dd.layui-this,
+.layui-nav-tree .layui-nav-child dd.layui-this a,
+.layui-nav-tree .layui-nav-child a:hover {
+    color: var(--app-primary) !important;
+    background: var(--app-primary-soft) !important;
+}
+
+.layui-nav-tree .layui-nav-child dd {
+    background: transparent !important;
 }
 
 .layui-nav-tree .layui-nav-bar {
